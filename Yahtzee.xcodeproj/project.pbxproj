@@ -59,8 +59,8 @@
 			children = (
 				E3E6A1312923EF9100710430 /* Objects */,
 				E3E6A1322923F0FD00710430 /* Views */,
-				E3DC91FB2910145A00DAE65A /* YahtzeeApp.swift */,
 				E3DC91FD2910145A00DAE65A /* ContentView.swift */,
+				E3DC91FB2910145A00DAE65A /* YahtzeeApp.swift */,
 				E3DC91FF2910145C00DAE65A /* Assets.xcassets */,
 				E3DC92012910145C00DAE65A /* Preview Content */,
 			);
