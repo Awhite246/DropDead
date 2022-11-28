@@ -9,8 +9,8 @@ import SwiftUI
 import SceneKit
 
 struct Home: View {
-    //You have to initialize SCNScene up here instead of in DiceSceneView() for some reason or else it won't work
-    @State private var diceScene1: SCNScene? = .init(named: "Dice.usdz")
+    //Dices
+    @State private var diceScene1: SCNScene? = .init(named: "Dice.usdz") //You have to initialize SCNScene up here instead of in DiceSceneView() for some reason or else it won't work
     @State private var dice1 = Dice()
     @State private var diceScene2: SCNScene? = .init(named: "Dice.usdz")
     @State private var dice2 = Dice()
@@ -22,7 +22,10 @@ struct Home: View {
     @State private var dice5 = Dice()
     @State private var diceScene6: SCNScene? = .init(named: "Dice.usdz")
     @State private var dice6 = Dice()
+    
+    //Stops button presses if dice is currently rolling
     @State private var rolling = false
+    //Keeps track of number of times dice has appeared
     @State private var count = [0,0,0,0,0,0]
     var body: some View {
         //Cool code
@@ -48,16 +51,17 @@ struct Home: View {
                     .padding(.top, 50)
             }
             Spacer()
+            //Displays all count values
             ForEach(0..<6, id: \.self) { num in
                 Text("Count \(num + 1): \(count[num])")
             }
-            
+            //Rolls the dice
             Button("Roll Dice") {
                 if !rolling {
                     //Stops user from spamming button
                     rolling = true
                     //Turns on animations
-                    SCNTransaction.animationDuration = 0.2
+                    SCNTransaction.animationDuration = 2.0
                     
                     //Changes x y z random amount (.pi = 180 rotation)
                     dice1.rollDice()
@@ -67,15 +71,10 @@ struct Home: View {
                     dice5.rollDice()
                     dice6.rollDice()
                     //Sets the x y z rotation values to the random numbers
-                    diceScene1?.rootNode.eulerAngles = dice1.getVector()
-                    diceScene2?.rootNode.eulerAngles = dice2.getVector()
-                    diceScene3?.rootNode.eulerAngles = dice3.getVector()
-                    diceScene4?.rootNode.eulerAngles = dice4.getVector()
-                    diceScene5?.rootNode.eulerAngles = dice5.getVector()
-                    diceScene6?.rootNode.eulerAngles = dice6.getVector()
-                    //Delays by 0.1
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        SCNTransaction.animationDuration = 0.1
+                    updateDice()
+                    //Delays by 2.0 seconds, so centering of dice appears as seperate animation
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        SCNTransaction.animationDuration = 0.5
                         
                         //Rounds division to nearest whole number the re-multiplies to center it on a square
                         dice1.centerDice()
@@ -85,12 +84,7 @@ struct Home: View {
                         dice5.centerDice()
                         dice6.centerDice()
                         //Sets recentered xy object rotation
-                        diceScene1?.rootNode.eulerAngles = dice1.getVector()
-                        diceScene2?.rootNode.eulerAngles = dice2.getVector()
-                        diceScene3?.rootNode.eulerAngles = dice3.getVector()
-                        diceScene4?.rootNode.eulerAngles = dice4.getVector()
-                        diceScene5?.rootNode.eulerAngles = dice5.getVector()
-                        diceScene6?.rootNode.eulerAngles = dice6.getVector()
+                            updateDice()
                         rolling = false
                         //For debugging (I think random value arent random enough)
                         count[dice1.getValue() - 1] += 1
@@ -102,17 +96,31 @@ struct Home: View {
                     }
                 }
             }
+            .disabled(rolling)
         }
+    }
+    func updateDice() {
+        diceScene1?.rootNode.eulerAngles = dice1.getVector()
+        diceScene2?.rootNode.eulerAngles = dice2.getVector()
+        diceScene3?.rootNode.eulerAngles = dice3.getVector()
+        diceScene4?.rootNode.eulerAngles = dice4.getVector()
+        diceScene5?.rootNode.eulerAngles = dice5.getVector()
+        diceScene6?.rootNode.eulerAngles = dice6.getVector()
     }
 }
 struct Dice: Codable {
-    var xRot : Float = 0
-    var yRot : Float = 0
-    var zRot : Float = 0
+    //xyz value of dice
+    private var xRot : Float = 0
+    private var yRot : Float = 0
+    private var zRot : Float = 0
+    //dice activation value
+    private var activated : Bool = true
     mutating func rollDice() {
+        //3.5 - 0.5 && 1.5 - 2.5 more often then 0.5 - 1.5 && 2.5 - 3.5
+        let randomY = Float.random(in: 0...4)
         //Changes x y z random amount (.pi = 180 rotation)
-        xRot += (.pi) * Float.random(in: 3.1...4.9)  * (Bool.random() ? -1.0 : 1.0)
-        yRot += (.pi) * Float.random(in: 3.1...4.9)  * (Bool.random() ? -1.0 : 1.0)
+        xRot += (.pi / 2) * (4 + Float.random(in: 0...4))  * (Bool.random() ? -1.0 : 1.0)
+        yRot += (.pi / 2) * (4 + randomY)  * (Bool.random() ? -1.0 : 1.0)
         zRot += (.pi) * Float.random(in: 1.0...3.0)  * (Bool.random() ? -1.0 : 1.0)
     }
     mutating func centerDice() {
@@ -121,8 +129,18 @@ struct Dice: Codable {
         yRot = (round(yRot / (.pi / 2))) * (.pi / 2)
         zRot = (round(zRot / (.pi))) * (.pi)
     }
+    mutating func setActivation(activate : Bool) {
+        activated = activate
+    }
+    mutating func toggle() {
+        activated.toggle()
+    }
     func getVector() -> SCNVector3 {
         return SCNVector3(x: xRot, y: yRot, z: zRot)
+    }
+    //returns wether or not dice is being used
+    func isActivated() -> Bool {
+        return activated
     }
     //gets the value of the dice facing the user
     func getValue() -> Int {
