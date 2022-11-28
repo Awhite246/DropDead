@@ -9,9 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            Home()
-        }
+        Home()
         .preferredColorScheme(.dark)
     }
 }

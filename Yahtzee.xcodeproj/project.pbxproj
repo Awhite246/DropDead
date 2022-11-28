@@ -14,6 +14,7 @@
 		E3E6A1342923F10800710430 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E6A1332923F10800710430 /* Home.swift */; };
 		E3E6A14429268D6E00710430 /* DiceSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E6A14329268D6E00710430 /* DiceSceneView.swift */; };
 		E3E6A14629268E7000710430 /* Dice.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E3E6A14529268E7000710430 /* Dice.usdz */; };
+		E3E6A14C2934629400710430 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E6A14B2934629400710430 /* Rules.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		E3E6A1332923F10800710430 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		E3E6A14329268D6E00710430 /* DiceSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceSceneView.swift; sourceTree = "<group>"; };
 		E3E6A14529268E7000710430 /* Dice.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Dice.usdz; sourceTree = "<group>"; };
+		E3E6A14B2934629400710430 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				E3E6A1332923F10800710430 /* Home.swift */,
+				E3E6A14B2934629400710430 /* Rules.swift */,
 				E3E6A14329268D6E00710430 /* DiceSceneView.swift */,
 			);
 			path = Views;
@@ -167,6 +170,7 @@
 				E3DC91FE2910145A00DAE65A /* ContentView.swift in Sources */,
 				E3E6A1342923F10800710430 /* Home.swift in Sources */,
 				E3DC91FC2910145A00DAE65A /* YahtzeeApp.swift in Sources */,
+				E3E6A14C2934629400710430 /* Rules.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
