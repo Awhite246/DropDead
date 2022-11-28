@@ -42,11 +42,6 @@ struct Home: View {
                     
                     //Sets recentered xy object rotation
                     diceScene1?.rootNode.eulerAngles = dice1.getVector()
-                    
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.75) {
-                    SCNTransaction.animationDuration = 0.0
-                    dice1.resetDice()
                     rolling = false
                 }
             }
@@ -59,9 +54,9 @@ struct Dice: Codable {
     var zRot : Float = 0
     mutating func rollDice() {
         //Changes x y z random amount (.pi = 180 rotation)
-        xRot += (.pi) * Float.random(in: 4.5...6.5)  * (Bool.random() ? -1.0 : 1.0)
-        yRot += (.pi) * Float.random(in: 4.5...6.5)  * (Bool.random() ? -1.0 : 1.0)
-        zRot += (.pi) * Float.random(in: 1.0...2.0)  * (Bool.random() ? -1.0 : 1.0)
+        xRot += (.pi) * Float.random(in: 3.0...5.0)  * (Bool.random() ? -1.0 : 1.0)
+        yRot += (.pi) * Float.random(in: 3.0...5.0)  * (Bool.random() ? -1.0 : 1.0)
+        zRot += (.pi) * Float.random(in: 1.0...3.0)  * (Bool.random() ? -1.0 : 1.0)
     }
     mutating func centerDice() {
         //Rounds division to nearest whole number the re-multiplies to center it on a square
@@ -69,61 +64,62 @@ struct Dice: Codable {
         yRot = (round(yRot / (.pi / 2))) * (.pi / 2)
         zRot = (round(zRot / (.pi))) * (.pi)
     }
-    mutating func resetDice() {
-        xRot = Float((Int((round(xRot / (.pi / 2)))) % 4)) * (.pi / 2)
-        yRot = Float((Int((round(yRot / (.pi / 2)))) % 4)) * (.pi / 2)
-    }
-    //Rolls dice in directions
-    mutating func rollDown() {
-        xRot += .pi / 2
-    }
-    mutating func rollRight() {
-        yRot += .pi / 2
-    }
     func getVector() -> SCNVector3 {
         return SCNVector3(x: xRot, y: yRot, z: zRot)
     }
-    func getValue() -> Int {
+    //gets the value of the dice facing the user
+    func getValue() -> String {
+        var str = "Num: "
         //Rounds float down into 4 rotation amounts
-        let xTemp = Int(round(xRot / (.pi / 2))) % 4
-        let yTemp = Int(round(yRot / (.pi / 2))) % 4
+        var xTemp = Int(round(xRot / (.pi / 2))) % 4
+        var yTemp = Int(round(yRot / (.pi / 2))) % 4
+        //corrects negative numbers
+        if (xTemp < 0){
+            xTemp += 4
+        }
+        if (yTemp < 0){
+            yTemp += 4
+        }
         let value = xTemp * 10 + yTemp
+        //dont know a smarter way of doing this so just hardcoding values
         switch value {
         case 00:
-            return 1
+            str += "1"
         case 01:
-            return 5
+            str += "5"
         case 02:
-            return 6
+            str += "6"
         case 03:
-            return 2
+            str += "2"
         case 10:
-            return 4
+            str += "4"
         case 11:
-            return 5
+            str += "5"
         case 12:
-            return 3
+            str += "3"
         case 13:
-            return 2
+            str += "2"
         case 20:
-            return 6
+            str += "6"
         case 21:
-            return 5
+            str += "5"
         case 22:
-            return 1
+            str += "1"
         case 23:
-            return 2
+            str += "2"
         case 30:
-            return 3
+            str += "3"
         case 31:
-            return 5
+            str += "5"
         case 32:
-            return 4
+            str += "4"
         case 33:
-            return 2
+            str += "2"
         default:
-            return -1
+            str += "-1"
         }
+        str += ", x: \(xTemp), y: \(yTemp)"
+        return str
     }
 }
 struct Home_Previews: PreviewProvider {
