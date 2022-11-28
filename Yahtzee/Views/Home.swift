@@ -23,6 +23,7 @@ struct Home: View {
     @State private var diceScene6: SCNScene? = .init(named: "Dice.usdz")
     @State private var dice6 = Dice()
     @State private var rolling = false
+    @State private var count = [0,0,0,0,0,0]
     var body: some View {
         //Cool code
         VStack {
@@ -47,14 +48,16 @@ struct Home: View {
                     .padding(.top, 50)
             }
             Spacer()
-            Text("\(dice1.getValue())")
-                .font(.title).bold()
-            Button("Roll Dice"){
+            ForEach(0..<6, id: \.self) { num in
+                Text("Count \(num + 1): \(count[num])")
+            }
+            
+            Button("Roll Dice") {
                 if !rolling {
                     //Stops user from spamming button
                     rolling = true
                     //Turns on animations
-                    SCNTransaction.animationDuration = 2.0
+                    SCNTransaction.animationDuration = 0.2
                     
                     //Changes x y z random amount (.pi = 180 rotation)
                     dice1.rollDice()
@@ -71,8 +74,8 @@ struct Home: View {
                     diceScene5?.rootNode.eulerAngles = dice5.getVector()
                     diceScene6?.rootNode.eulerAngles = dice6.getVector()
                     //Delays by 0.1
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                        SCNTransaction.animationDuration = 0.75
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        SCNTransaction.animationDuration = 0.1
                         
                         //Rounds division to nearest whole number the re-multiplies to center it on a square
                         dice1.centerDice()
@@ -89,6 +92,13 @@ struct Home: View {
                         diceScene5?.rootNode.eulerAngles = dice5.getVector()
                         diceScene6?.rootNode.eulerAngles = dice6.getVector()
                         rolling = false
+                        //For debugging (I think random value arent random enough)
+                        count[dice1.getValue() - 1] += 1
+                        count[dice2.getValue() - 1] += 1
+                        count[dice3.getValue() - 1] += 1
+                        count[dice4.getValue() - 1] += 1
+                        count[dice5.getValue() - 1] += 1
+                        count[dice6.getValue() - 1] += 1
                     }
                 }
             }
@@ -115,8 +125,7 @@ struct Dice: Codable {
         return SCNVector3(x: xRot, y: yRot, z: zRot)
     }
     //gets the value of the dice facing the user
-    func getValue() -> String {
-        var str = "Num: "
+    func getValue() -> Int {
         //Rounds float down into 4 rotation amounts
         var xTemp = Int(round(xRot / (.pi / 2))) % 4
         var yTemp = Int(round(yRot / (.pi / 2))) % 4
@@ -131,42 +140,40 @@ struct Dice: Codable {
         //dont know a smarter way of doing this so just hardcoding values
         switch value {
         case 00:
-            str += "1"
+            return 1
         case 01:
-            str += "5"
+            return 5
         case 02:
-            str += "6"
+            return 6
         case 03:
-            str += "2"
+            return 2
         case 10:
-            str += "4"
+            return 4
         case 11:
-            str += "5"
+            return 5
         case 12:
-            str += "3"
+            return 3
         case 13:
-            str += "2"
+            return 2
         case 20:
-            str += "6"
+            return 6
         case 21:
-            str += "5"
+            return 5
         case 22:
-            str += "1"
+            return 1
         case 23:
-            str += "2"
+            return 2
         case 30:
-            str += "3"
+            return 3
         case 31:
-            str += "5"
+            return 5
         case 32:
-            str += "4"
+            return 4
         case 33:
-            str += "2"
+            return 2
         default:
-            str += "-1"
+            return -1
         }
-        str += "\n x: \(xTemp), y: \(yTemp)"
-        return str
     }
 }
 struct Home_Previews: PreviewProvider {
