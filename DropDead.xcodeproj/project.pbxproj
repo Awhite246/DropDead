@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E3DC91FC2910145A00DAE65A /* YahtzeeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC91FB2910145A00DAE65A /* YahtzeeApp.swift */; };
+		E3DC91FC2910145A00DAE65A /* DropDeadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC91FB2910145A00DAE65A /* DropDeadApp.swift */; };
 		E3DC91FE2910145A00DAE65A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC91FD2910145A00DAE65A /* ContentView.swift */; };
 		E3DC92002910145C00DAE65A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3DC91FF2910145C00DAE65A /* Assets.xcassets */; };
 		E3DC92032910145C00DAE65A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3DC92022910145C00DAE65A /* Preview Assets.xcassets */; };
@@ -20,7 +20,7 @@
 
 /* Begin PBXFileReference section */
 		E3DC91F82910145A00DAE65A /* Yahtzee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yahtzee.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3DC91FB2910145A00DAE65A /* YahtzeeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahtzeeApp.swift; sourceTree = "<group>"; };
+		E3DC91FB2910145A00DAE65A /* DropDeadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDeadApp.swift; sourceTree = "<group>"; };
 		E3DC91FD2910145A00DAE65A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E3DC91FF2910145C00DAE65A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E3DC92022910145C00DAE65A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -45,7 +45,7 @@
 		E3DC91EF2910145A00DAE65A = {
 			isa = PBXGroup;
 			children = (
-				E3DC91FA2910145A00DAE65A /* Yahtzee */,
+				E3DC91FA2910145A00DAE65A /* DropDead */,
 				E3DC91F92910145A00DAE65A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,17 +58,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E3DC91FA2910145A00DAE65A /* Yahtzee */ = {
+		E3DC91FA2910145A00DAE65A /* DropDead */ = {
 			isa = PBXGroup;
 			children = (
 				E3E6A1312923EF9100710430 /* Objects */,
 				E3E6A1322923F0FD00710430 /* Views */,
 				E3DC91FD2910145A00DAE65A /* ContentView.swift */,
-				E3DC91FB2910145A00DAE65A /* YahtzeeApp.swift */,
+				E3DC91FB2910145A00DAE65A /* DropDeadApp.swift */,
 				E3DC91FF2910145C00DAE65A /* Assets.xcassets */,
 				E3DC92012910145C00DAE65A /* Preview Content */,
 			);
-			path = Yahtzee;
+			path = DropDead;
 			sourceTree = "<group>";
 		};
 		E3DC92012910145C00DAE65A /* Preview Content */ = {
@@ -133,7 +133,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E3DC91F32910145A00DAE65A /* Build configuration list for PBXProject "Yahtzee" */;
+			buildConfigurationList = E3DC91F32910145A00DAE65A /* Build configuration list for PBXProject "DropDead" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -172,7 +172,7 @@
 				E3E6A14429268D6E00710430 /* DiceSceneView.swift in Sources */,
 				E3DC91FE2910145A00DAE65A /* ContentView.swift in Sources */,
 				E3E6A1342923F10800710430 /* Home.swift in Sources */,
-				E3DC91FC2910145A00DAE65A /* YahtzeeApp.swift in Sources */,
+				E3DC91FC2910145A00DAE65A /* DropDeadApp.swift in Sources */,
 				E3E6A14E2934FDF900710430 /* Start.swift in Sources */,
 				E3E6A14C2934629400710430 /* Rules.swift in Sources */,
 			);
@@ -306,11 +306,12 @@
 				DEVELOPMENT_TEAM = FH76A842AA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.dice-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -335,11 +336,12 @@
 				DEVELOPMENT_TEAM = FH76A842AA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.dice-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -356,7 +358,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E3DC91F32910145A00DAE65A /* Build configuration list for PBXProject "Yahtzee" */ = {
+		E3DC91F32910145A00DAE65A /* Build configuration list for PBXProject "DropDead" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E3DC92042910145C00DAE65A /* Debug */,
