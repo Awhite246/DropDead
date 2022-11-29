@@ -15,11 +15,10 @@
 		E3E6A14429268D6E00710430 /* DiceSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E6A14329268D6E00710430 /* DiceSceneView.swift */; };
 		E3E6A14629268E7000710430 /* Dice.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E3E6A14529268E7000710430 /* Dice.usdz */; };
 		E3E6A14C2934629400710430 /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E6A14B2934629400710430 /* Rules.swift */; };
-		E3E6A14E2934FDF900710430 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E6A14D2934FDF900710430 /* Start.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E3DC91F82910145A00DAE65A /* Yahtzee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yahtzee.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3DC91F82910145A00DAE65A /* DropDead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropDead.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3DC91FB2910145A00DAE65A /* DropDeadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDeadApp.swift; sourceTree = "<group>"; };
 		E3DC91FD2910145A00DAE65A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E3DC91FF2910145C00DAE65A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -28,7 +27,6 @@
 		E3E6A14329268D6E00710430 /* DiceSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceSceneView.swift; sourceTree = "<group>"; };
 		E3E6A14529268E7000710430 /* Dice.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Dice.usdz; sourceTree = "<group>"; };
 		E3E6A14B2934629400710430 /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
-		E3E6A14D2934FDF900710430 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +51,7 @@
 		E3DC91F92910145A00DAE65A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E3DC91F82910145A00DAE65A /* Yahtzee.app */,
+				E3DC91F82910145A00DAE65A /* DropDead.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,7 +91,6 @@
 				E3E6A1332923F10800710430 /* Home.swift */,
 				E3E6A14B2934629400710430 /* Rules.swift */,
 				E3E6A14329268D6E00710430 /* DiceSceneView.swift */,
-				E3E6A14D2934FDF900710430 /* Start.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -101,9 +98,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E3DC91F72910145A00DAE65A /* Yahtzee */ = {
+		E3DC91F72910145A00DAE65A /* DropDead */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E3DC92062910145C00DAE65A /* Build configuration list for PBXNativeTarget "Yahtzee" */;
+			buildConfigurationList = E3DC92062910145C00DAE65A /* Build configuration list for PBXNativeTarget "DropDead" */;
 			buildPhases = (
 				E3DC91F42910145A00DAE65A /* Sources */,
 				E3DC91F52910145A00DAE65A /* Frameworks */,
@@ -113,9 +110,9 @@
 			);
 			dependencies = (
 			);
-			name = Yahtzee;
+			name = DropDead;
 			productName = Yahtzee;
-			productReference = E3DC91F82910145A00DAE65A /* Yahtzee.app */;
+			productReference = E3DC91F82910145A00DAE65A /* DropDead.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -146,7 +143,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E3DC91F72910145A00DAE65A /* Yahtzee */,
+				E3DC91F72910145A00DAE65A /* DropDead */,
 			);
 		};
 /* End PBXProject section */
@@ -173,7 +170,6 @@
 				E3DC91FE2910145A00DAE65A /* ContentView.swift in Sources */,
 				E3E6A1342923F10800710430 /* Home.swift in Sources */,
 				E3DC91FC2910145A00DAE65A /* DropDeadApp.swift in Sources */,
-				E3E6A14E2934FDF900710430 /* Start.swift in Sources */,
 				E3E6A14C2934629400710430 /* Rules.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,7 +298,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Yahtzee/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DropDead/Preview Content\"";
 				DEVELOPMENT_TEAM = FH76A842AA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -332,7 +328,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Yahtzee/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DropDead/Preview Content\"";
 				DEVELOPMENT_TEAM = FH76A842AA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -367,7 +363,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E3DC92062910145C00DAE65A /* Build configuration list for PBXNativeTarget "Yahtzee" */ = {
+		E3DC92062910145C00DAE65A /* Build configuration list for PBXNativeTarget "DropDead" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E3DC92072910145C00DAE65A /* Debug */,
