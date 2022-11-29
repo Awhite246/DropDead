@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct YahtzeeApp: App {
+struct DropDeadApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
