@@ -115,12 +115,13 @@ struct Dice: Codable {
     private var zRot : Float = 0
     //dice activation value
     private var activated : Bool = true
-    mutating func rollDice() {
-        //3.5 - 0.5 && 1.5 - 2.5 more often then 0.5 - 1.5 && 2.5 - 3.5
-        let randomY = Float.random(in: 0...4)
+    mutating func rollDice(reroll : Bool = false) {
         //Changes x y z random amount (.pi = 180 rotation)
         xRot += (.pi / 2) * (4 + Float.random(in: 0...4))  * (Bool.random() ? -1.0 : 1.0)
-        yRot += (.pi / 2) * (4 + randomY)  * (Bool.random() ? -1.0 : 1.0)
+        yRot += (.pi / 2) * (4 + Float.random(in: 0...4))  * (Bool.random() ? -1.0 : 1.0)
+        if ((Bool.random() || reroll) && (getValue() == 2 || getValue() == 5)){
+            rollDice(reroll: true)
+        }
         zRot += (.pi) * Float.random(in: 1.0...3.0)  * (Bool.random() ? -1.0 : 1.0)
     }
     mutating func centerDice() {
