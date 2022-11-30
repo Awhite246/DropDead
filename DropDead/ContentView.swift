@@ -8,9 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var players : [String] = []
     var body: some View {
-        VStack {
-            Home()
+        NavigationView {
+            VStack {
+                Text("Drop Dead")
+                    .font(.title).bold()
+                NavigationLink("Player Select", destination: PlayerSelect(players: $players)
+                    .navigationBarBackButtonHidden(true))
+                NavigationLink("Test", destination: Home()
+                    .navigationBarBackButtonHidden(true))
+            }
         }
         .preferredColorScheme(.dark)
     }
