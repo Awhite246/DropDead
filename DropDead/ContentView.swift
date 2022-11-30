@@ -12,12 +12,29 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Drop Dead")
-                    .font(.title).bold()
+                ZStack {
+                    Image("DiceLogo")
+                        .resizable()
+                        .frame(width: 300, height: 150)
+                    Color.black
+                        .frame(width:175, height: 50)
+                        .opacity(0.5)
+                    Text("Drop Dead")
+                        .font(.title).bold()
+                }
+                .padding(.bottom, 100)
                 NavigationLink("Player Select", destination: PlayerSelect(players: $players)
                     .navigationBarBackButtonHidden(true))
+                .font(.title2).bold()
+                .padding(25)
+                NavigationLink("Rules", destination: Rules()
+                    .navigationBarBackButtonHidden(true))
+                .font(.title2).bold()
+                .padding(25)
                 NavigationLink("Test", destination: Home()
                     .navigationBarBackButtonHidden(true))
+                .font(.title2).bold()
+                .padding(25)
             }
         }
         .preferredColorScheme(.dark)

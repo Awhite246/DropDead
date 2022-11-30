@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Rules: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         NavigationView {
             VStack {
@@ -20,7 +21,19 @@ struct Rules: View {
                 Header(text: "Dropping Dead")
                 Text("A player's turn does not stop until their last remaining die shows a 2 or 5. At that point, the player \"drops dead\" and it becomes the next player's turn")
                 Header(text: "The highest total score wins.")
+                Spacer()
             }
+            .toolbar{
+                ToolbarItem (placement: .navigationBarLeading) {
+                    Button {
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Image(systemName: "arrow.backward.circle")
+                    }
+                }
+            }
+            .navigationTitle("Rules")
+            .navigationBarTitleDisplayMode(.inline)
         }
         .preferredColorScheme(.dark)
     }
