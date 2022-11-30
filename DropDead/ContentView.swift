@@ -31,7 +31,7 @@ struct ContentView: View {
                     .navigationBarBackButtonHidden(true))
                 .font(.title2).bold()
                 .padding(25)
-                NavigationLink("Test", destination: Home()
+                NavigationLink("Play Game", destination: Home()
                     .navigationBarBackButtonHidden(true))
                 .font(.title2).bold()
                 .padding(25)

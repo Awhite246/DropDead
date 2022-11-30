@@ -26,6 +26,8 @@ struct Home: View {
     //Keeps track of number of times dice has appeared
     @State private var count = [0,0,0,0,0,0]
     @State private var point = 0
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State private var showingRule = false
     var body: some View {
         let diceSize : CGFloat = 100
         let deactivateColor : Color = .red
@@ -94,6 +96,27 @@ struct Home: View {
                 }
             }
             .disabled(rolling)
+        }
+        .sheet(isPresented: $showingRule, content: {
+            Rules()
+        })
+        .toolbar{
+            ToolbarItem (placement: .navigationBarLeading) {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "arrow.backward.circle")
+                }
+            }
+            ToolbarItem (placement: .navigationBarTrailing) {
+                Button {
+                   showingRule = true
+                } label: {
+                    Image(systemName: "questionmark.circle")
+                }
+
+            }
+            
         }
     }
     func resetDice() {
@@ -251,6 +274,6 @@ class Dice : ObservableObject {
 }
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Home()
     }
 }

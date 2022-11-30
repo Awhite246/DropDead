@@ -13,16 +13,20 @@ struct PlayerSelect: View {
     @State private var showingAddPlayer = false
     //variable to be able to check the edit mode state
     @State var mode: EditMode = .inactive
+    //used for custom back button
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         NavigationView {
             List {
+                //prints out all players
                 ForEach(players, id: \.self) { player in
                         Text(player)
                         Spacer()
                 }
+                //delete players
                 .onDelete { players.remove(atOffsets: $0) }
                 .onMove { players.move(fromOffsets: $0, toOffset: $1) }
+                //add new player button
                 Button {
                     showingAddPlayer = true
                 } label: {
@@ -38,6 +42,7 @@ struct PlayerSelect: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .toolbar {
+                //back and edit button
                 ToolbarItem (placement: .navigationBarLeading) {
                     Button {
                         presentationMode.wrappedValue.dismiss()
@@ -69,6 +74,7 @@ struct AddPlayer : View {
             .navigationTitle("Add New Player")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                //back and confirm button
                 ToolbarItem (placement: .navigationBarTrailing){
                     Button {
                         players.append(name)
