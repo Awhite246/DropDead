@@ -21,7 +21,6 @@ struct PlayerSelect: View {
                 //prints out all players
                 ForEach(players, id: \.self) { player in
                         Text(player)
-                        Spacer()
                 }
                 //delete players
                 .onDelete { players.remove(atOffsets: $0) }

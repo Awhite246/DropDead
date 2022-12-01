@@ -23,37 +23,44 @@ struct Home: View {
     
     //Stops button presses if dice is currently rolling
     @State private var rolling = false
-    //Keeps track of number of times dice has appeared
-    @State private var count = [0,0,0,0,0,0]
     @State private var point = 0
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var showingRule = false
+    //Alert when trying to leave view
+    @State private var leaveAlert = false
+    @State var players : [String]
     var body: some View {
         let diceSize : CGFloat = 100
+        let activateColor : Color = .white
         let deactivateColor : Color = .red
         //Cool code
         VStack {
             HStack {
                 DiceSceneView(scene: $diceScene4)
                     .frame(width: diceSize, height: diceSize)
-                    .colorMultiply(dice4.isActivated() ? .white : deactivateColor)
+                    .colorMultiply(dice4.isActivated() ? activateColor : deactivateColor)
                 DiceSceneView(scene: $diceScene5)
                     .frame(width: diceSize, height: diceSize)
-                    .colorMultiply(dice5.isActivated() ? .white : deactivateColor)
+                    .colorMultiply(dice5.isActivated() ? activateColor : deactivateColor)
             }
             .padding(.top, 50)
             HStack {
                 DiceSceneView(scene: $diceScene1)
                     .frame(width: diceSize, height: diceSize)
-                    .colorMultiply(dice1.isActivated() ? .white : deactivateColor)
+                    .colorMultiply(dice1.isActivated() ? activateColor : deactivateColor)
                 DiceSceneView(scene: $diceScene2)
                     .frame(width: diceSize, height: diceSize)
-                    .colorMultiply(dice2.isActivated() ? .white : deactivateColor)
+                    .colorMultiply(dice2.isActivated() ? activateColor : deactivateColor)
                 DiceSceneView(scene: $diceScene3)
                     .frame(width: diceSize, height: diceSize)
-                    .colorMultiply(dice3.isActivated() ? .white : deactivateColor)
+                    .colorMultiply(dice3.isActivated() ? activateColor : deactivateColor)
             }
             .padding()
+            HStack{
+                ForEach(players, id: \.self) { name in
+                    Text(name)
+                }
+            }
             Text("Points : \(point)")
                 .font(.title).bold()
             Spacer()
@@ -62,10 +69,6 @@ struct Home: View {
                 updateDice(animationTime: 0.0)
             }
             .disabled(rolling)
-            //Displays all count values
-            ForEach(0..<6, id: \.self) { num in
-                Text("Count \(num + 1): \(count[num])")
-            }
             //Rolls the dice
             Button("Roll Dice") {
                 if !rolling {
@@ -84,39 +87,43 @@ struct Home: View {
                         //Sets recentered xy object rotation
                         updateDice(animationTime: 0.5)
                         updatePoints()
-                        checkActivation()
                         rolling = false
-                        //For debugging (I think random value arent random enough)
-                        count[dice1.getValue() - 1] += 1
-                        count[dice2.getValue() - 1] += 1
-                        count[dice3.getValue() - 1] += 1
-                        count[dice4.getValue() - 1] += 1
-                        count[dice5.getValue() - 1] += 1
                     }
                 }
             }
             .disabled(rolling)
         }
+        
         .sheet(isPresented: $showingRule, content: {
             Rules()
         })
         .toolbar{
-            ToolbarItem (placement: .navigationBarLeading) {
-                Button {
-                    presentationMode.wrappedValue.dismiss()
-                } label: {
-                    Image(systemName: "arrow.backward.circle")
-                }
-            }
+//            ToolbarItem (placement: .navigationBarLeading) {
+//                Button {
+//                    leaveAlert = true
+//                } label: {
+//                    Image(systemName: "arrow.backward.circle")
+//                        .alert(isPresented: $leaveAlert) {
+//                            Alert(title: Text("Are you sure?"), message: Text("Leaving the game loses all progress"), primaryButton: .destructive(Text("Yes")){
+//                                rolling = false
+//                                resetDice()
+//                                presentationMode.wrappedValue.dismiss()
+//                            }, secondaryButton: .cancel(Text("Cancel")))
+//                        }
+//                }
+//            }
             ToolbarItem (placement: .navigationBarTrailing) {
                 Button {
-                   showingRule = true
+                    showingRule = true
                 } label: {
                     Image(systemName: "questionmark.circle")
                 }
-
+                
             }
             
+        }
+        .onAppear {
+            resetDice()
         }
     }
     func resetDice() {
@@ -142,11 +149,43 @@ struct Home: View {
         dice5.centerDice()
     }
     func updatePoints() {
-        if dice1.isActivated() { point += dice1.getValue() }
-        if dice2.isActivated() { point += dice2.getValue() }
-        if dice3.isActivated() { point += dice3.getValue() }
-        if dice4.isActivated() { point += dice4.getValue() }
-        if dice5.isActivated() { point += dice5.getValue() }
+        var dropDead = false
+        if dice1.isActivated() && (dice1.getValue() == 2 || dice1.getValue() == 5) {
+            dropDead = true
+            dice1.setActivation(false)
+        }
+        if dice2.isActivated() && (dice2.getValue() == 2 || dice2.getValue() == 5) {
+            dropDead = true
+            dice2.setActivation(false)
+        }
+        if dice3.isActivated() && (dice3.getValue() == 2 || dice3.getValue() == 5) {
+            dropDead = true
+            dice3.setActivation(false)
+        }
+        if dice4.isActivated() && (dice4.getValue() == 2 || dice4.getValue() == 5) {
+            dropDead = true
+            dice4.setActivation(false)
+        }
+        if dice5.isActivated() && (dice5.getValue() == 2 || dice5.getValue() == 5) {
+            dropDead = true
+            dice5.setActivation(false)
+        }
+        if dropDead { return }
+        if dice1.isActivated() {
+            point += dice1.getValue()
+        }
+        if dice2.isActivated() {
+            point += dice2.getValue()
+        }
+        if dice3.isActivated() {
+            point += dice3.getValue()
+        }
+        if dice4.isActivated() {
+            point += dice4.getValue()
+        }
+        if dice5.isActivated() {
+            point += dice5.getValue()
+        }
     }
     //updates dice position
     func updateDice(animationTime : Double) {
@@ -156,14 +195,6 @@ struct Home: View {
         diceScene3?.rootNode.eulerAngles = dice3.getVector()
         diceScene4?.rootNode.eulerAngles = dice4.getVector()
         diceScene5?.rootNode.eulerAngles = dice5.getVector()
-    }
-    //checks if rolled 2 or 5
-    func checkActivation() {
-        dice1.dropDead()
-        dice2.dropDead()
-        dice3.dropDead()
-        dice4.dropDead()
-        dice5.dropDead()
     }
 }
 class Dice : ObservableObject {
@@ -199,13 +230,6 @@ class Dice : ObservableObject {
         xRot = (round(xRot / (.pi / 2))) * (.pi / 2)
         yRot = (round(yRot / (.pi / 2))) * (.pi / 2)
         zRot = (round(zRot / (.pi))) * (.pi)
-    }
-    func dropDead(){
-        if getValue() == 2 || getValue() == 5 {
-            setActivation(false)
-        } else {
-            setActivation(true)
-        }
     }
     func setActivation(_ activate : Bool) {
         activated = activate
@@ -274,6 +298,6 @@ class Dice : ObservableObject {
 }
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home()
+        Home(players: ["Player 1"])
     }
 }
