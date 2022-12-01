@@ -11,6 +11,7 @@
 		E39BF9912939066C008323DC /* NextPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BF9902939066C008323DC /* NextPlayer.swift */; };
 		E39BF994293918C4008323DC /* Dice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BF993293918C4008323DC /* Dice.swift */; };
 		E39BF996293918FB008323DC /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BF995293918FB008323DC /* AudioPlayer.swift */; };
+		E39BF9982939210A008323DC /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BF9972939210A008323DC /* Player.swift */; };
 		E3DC91FC2910145A00DAE65A /* DropDeadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC91FB2910145A00DAE65A /* DropDeadApp.swift */; };
 		E3DC91FE2910145A00DAE65A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC91FD2910145A00DAE65A /* ContentView.swift */; };
 		E3DC92002910145C00DAE65A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3DC91FF2910145C00DAE65A /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		E39BF9902939066C008323DC /* NextPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPlayer.swift; sourceTree = "<group>"; };
 		E39BF993293918C4008323DC /* Dice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dice.swift; sourceTree = "<group>"; };
 		E39BF995293918FB008323DC /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		E39BF9972939210A008323DC /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E3DC91F82910145A00DAE65A /* DropDead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropDead.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3DC91FB2910145A00DAE65A /* DropDeadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDeadApp.swift; sourceTree = "<group>"; };
 		E3DC91FD2910145A00DAE65A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +57,8 @@
 			children = (
 				E39BF993293918C4008323DC /* Dice.swift */,
 				E39BF995293918FB008323DC /* AudioPlayer.swift */,
+				E3E6A14329268D6E00710430 /* DiceSceneView.swift */,
+				E39BF9972939210A008323DC /* Player.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -113,7 +117,6 @@
 				E39BF98E2939010D008323DC /* Points.swift */,
 				E3E6A14F2936CB8400710430 /* PlayerSelect.swift */,
 				E3E6A14B2934629400710430 /* Rules.swift */,
-				E3E6A14329268D6E00710430 /* DiceSceneView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E39BF9982939210A008323DC /* Player.swift in Sources */,
 				E3E6A14429268D6E00710430 /* DiceSceneView.swift in Sources */,
 				E3DC91FE2910145A00DAE65A /* ContentView.swift in Sources */,
 				E3E6A1342923F10800710430 /* Home.swift in Sources */,

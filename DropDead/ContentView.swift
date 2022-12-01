@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var players : [String] = []
+    @State private var players : [Player] = []
     var body: some View {
         NavigationView {
             //start screen

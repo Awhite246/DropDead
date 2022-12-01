@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SceneKit
 
 class Dice : ObservableObject {
     //xyz value of dice

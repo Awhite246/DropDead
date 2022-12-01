@@ -29,8 +29,7 @@ struct Home: View {
     @State private var showingPoint = false
     @State private var nextPlayer = false
     //stores player names and point values
-    @State var players : [String]
-    @State private var points : [Int] = []
+    @State var players : [Player]
     //index of current player
     @State private var currentPlayer = 0
     var body: some View {
@@ -63,7 +62,7 @@ struct Home: View {
             
             .padding(50)
             //displayers current player info
-            Text("Current Player: \(players[currentPlayer])")
+            Text("Current Player: \(players[currentPlayer].name)")
                 .font(.title3).bold()
             Text("Points : \(point)")
                 .font(.title).bold()
@@ -93,7 +92,7 @@ struct Home: View {
                         //checks if no dice left
                         if droppedDead() {
                             //moves to next player
-                            points[currentPlayer] += point
+                            players[currentPlayer].point += point
                             currentPlayer += 1
                             currentPlayer %= players.count
                             point = 0
@@ -113,19 +112,16 @@ struct Home: View {
         //fixes crash problem where points.count != players.count
         .onAppear {
             resetDice()
-            for _ in players {
-                points.append(0)
-            }
         }
         //shows other views when variable is switched
         .sheet(isPresented: $showingRule, content: {
             Rules()
         })
         .sheet(isPresented: $showingPoint, content: {
-            Points(players: players, points: points)
+            Points(players: players)
         })
         .fullScreenCover(isPresented: $nextPlayer, content: {
-            NextPlayer(name: players[currentPlayer], point: points[currentPlayer == 0 ? players.count - 1 : currentPlayer - 1]) //makes sure point != -1
+            NextPlayer(player: Player(name: players[currentPlayer].name, point: players[currentPlayer == 0 ? players.count - 1 : currentPlayer].point)) //makes sure point != -1
         })
         .navigationTitle("Drop Dead")
         .toolbar{
@@ -253,6 +249,6 @@ struct Home: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home(players: ["Player 1", "Player 2"])
+        Home(players: [Player(name: "Fred", point: 0)])
     }
 }

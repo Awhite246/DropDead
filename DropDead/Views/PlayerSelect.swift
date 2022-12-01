@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerSelect: View {
     @State private var rotationAmount = 0.0
-    @Binding var players : [String]
+    @Binding var players : [Player]
     @State private var showingAddPlayer = false
     //variable to be able to check the edit mode state
     @State var mode: EditMode = .inactive
@@ -19,8 +19,8 @@ struct PlayerSelect: View {
         NavigationView {
             List {
                 //prints out all players
-                ForEach(players, id: \.self) { player in
-                        Text(player)
+                ForEach(0 ..< players.count, id: \.self) { i in
+                    Text(players[i].name)
                 }
                 //delete players
                 .onDelete { players.remove(atOffsets: $0) }
@@ -63,7 +63,7 @@ struct PlayerSelect: View {
     }
 }
 struct AddPlayer : View {
-    @Binding var players : [String]
+    @Binding var players : [Player]
     @State var name : String = ""
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
@@ -78,7 +78,7 @@ struct AddPlayer : View {
                 //confirm button
                 ToolbarItem (placement: .navigationBarTrailing){
                     Button {
-                        players.append(name)
+                        players.append(Player(name: self.name, point: 0))
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Image(systemName: "checkmark.square")

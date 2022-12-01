@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct Points: View {
-    @State var players : [String]
-    @State var points : [Int]
+    @State var players : [Player]
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         NavigationView {
             List {
                 //shows a list of all players and point values next to them
-                ForEach(players, id: \.self) { player in
+                ForEach(0 ..< players.count , id: \.self) { i in
                     HStack {
-                        Text(player)
+                        Text(players[i].name)
                         Spacer()
-                        Text("\(points[players.firstIndex(of: player) ?? 0])")
+                        Text("\(players[i].point)")
                     }
                 }
             }
@@ -42,6 +41,6 @@ struct Points: View {
 
 struct Points_Previews: PreviewProvider {
     static var previews: some View {
-        Points(players: ["test","poop","pow"], points: [1,2,3])
+        Points(players: [Player(name: "fred", point: 1)])
     }
 }
