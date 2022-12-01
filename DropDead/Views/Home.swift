@@ -25,10 +25,15 @@ struct Home: View {
     @State private var rolling = false
     @State private var point = 0
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    //wether or not to show rule or point view
     @State private var showingRule = false
-    //Alert when trying to leave view
-    @State private var leaveAlert = false
+    @State private var showingPoint = false
+    @State private var nextPlayer = false
+    //stores player names and point values
     @State var players : [String]
+    @State private var points : [Int] = []
+    //index of current player
+    @State private var currentPlayer = 0
     var body: some View {
         let diceSize : CGFloat = 100
         let activateColor : Color = .white
@@ -55,19 +60,12 @@ struct Home: View {
                     .frame(width: diceSize, height: diceSize)
                     .colorMultiply(dice3.isActivated() ? activateColor : deactivateColor)
             }
-            .padding()
-            HStack{
-                ForEach(players, id: \.self) { name in
-                    Text(name)
-                }
-            }
+            .padding(50)
+            Text("Current Player \(players[currentPlayer])")
+                .font(.title3).bold()
             Text("Points : \(point)")
                 .font(.title).bold()
             Spacer()
-            Button("Reset Dice") {
-                resetDice()
-                updateDice(animationTime: 0.0)
-            }
             .disabled(rolling)
             //Rolls the dice
             Button("Roll Dice") {
@@ -88,30 +86,47 @@ struct Home: View {
                         updateDice(animationTime: 0.5)
                         updatePoints()
                         rolling = false
+                        if droppedDead() {
+                            points[currentPlayer] += point
+                            currentPlayer += 1
+                            currentPlayer %= players.count
+                            point = 0
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                nextPlayer = true
+                                resetDice()
+                                updateDice(animationTime: 0.0)
+                            }
+                        }
                     }
                 }
             }
-            .disabled(rolling)
+            .font(.title2).bold()
+            .disabled(rolling || droppedDead())
         }
-        
+        .onAppear {
+            resetDice()
+            for _ in players {
+                points.append(0)
+            }
+        }
         .sheet(isPresented: $showingRule, content: {
             Rules()
         })
+        .sheet(isPresented: $showingPoint, content: {
+            Points(players: players, points: points)
+        })
+        .fullScreenCover(isPresented: $nextPlayer, content: {
+            NextPlayer(name: players[currentPlayer], point: points[currentPlayer == 0 ? players.count - 1 : currentPlayer - 1])
+        })
+        .navigationTitle("\(players[currentPlayer])")
         .toolbar{
-//            ToolbarItem (placement: .navigationBarLeading) {
-//                Button {
-//                    leaveAlert = true
-//                } label: {
-//                    Image(systemName: "arrow.backward.circle")
-//                        .alert(isPresented: $leaveAlert) {
-//                            Alert(title: Text("Are you sure?"), message: Text("Leaving the game loses all progress"), primaryButton: .destructive(Text("Yes")){
-//                                rolling = false
-//                                resetDice()
-//                                presentationMode.wrappedValue.dismiss()
-//                            }, secondaryButton: .cancel(Text("Cancel")))
-//                        }
-//                }
-//            }
+            ToolbarItem (placement: .navigationBarLeading) {
+                Button {
+                    showingPoint = true
+                } label: {
+                    Image(systemName:"plusminus.circle")
+                }
+            }
             ToolbarItem (placement: .navigationBarTrailing) {
                 Button {
                     showingRule = true
@@ -121,9 +136,6 @@ struct Home: View {
                 
             }
             
-        }
-        .onAppear {
-            resetDice()
         }
     }
     func resetDice() {
@@ -147,6 +159,24 @@ struct Home: View {
         dice3.centerDice()
         dice4.centerDice()
         dice5.centerDice()
+    }
+    func droppedDead() -> Bool{
+        if dice1.isActivated() {
+            return false
+        }
+        if dice2.isActivated() {
+            return false
+        }
+        if dice3.isActivated() {
+            return false
+        }
+        if dice4.isActivated() {
+            return false
+        }
+        if dice5.isActivated() {
+            return false
+        }
+        return true
     }
     func updatePoints() {
         var dropDead = false
@@ -298,6 +328,6 @@ class Dice : ObservableObject {
 }
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home(players: ["Player 1"])
+        Home(players: ["Player 1", "Player 2"])
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E39BF98F2939010D008323DC /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BF98E2939010D008323DC /* Points.swift */; };
+		E39BF9912939066C008323DC /* NextPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39BF9902939066C008323DC /* NextPlayer.swift */; };
 		E3DC91FC2910145A00DAE65A /* DropDeadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC91FB2910145A00DAE65A /* DropDeadApp.swift */; };
 		E3DC91FE2910145A00DAE65A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC91FD2910145A00DAE65A /* ContentView.swift */; };
 		E3DC92002910145C00DAE65A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3DC91FF2910145C00DAE65A /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E39BF98E2939010D008323DC /* Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
+		E39BF9902939066C008323DC /* NextPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPlayer.swift; sourceTree = "<group>"; };
 		E3DC91F82910145A00DAE65A /* DropDead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropDead.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3DC91FB2910145A00DAE65A /* DropDeadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDeadApp.swift; sourceTree = "<group>"; };
 		E3DC91FD2910145A00DAE65A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				E3E6A1332923F10800710430 /* Home.swift */,
+				E39BF9902939066C008323DC /* NextPlayer.swift */,
+				E39BF98E2939010D008323DC /* Points.swift */,
 				E3E6A14F2936CB8400710430 /* PlayerSelect.swift */,
 				E3E6A14B2934629400710430 /* Rules.swift */,
 				E3E6A14329268D6E00710430 /* DiceSceneView.swift */,
@@ -173,8 +179,10 @@
 				E3DC91FE2910145A00DAE65A /* ContentView.swift in Sources */,
 				E3E6A1342923F10800710430 /* Home.swift in Sources */,
 				E3DC91FC2910145A00DAE65A /* DropDeadApp.swift in Sources */,
+				E39BF98F2939010D008323DC /* Points.swift in Sources */,
 				E3E6A1502936CB8400710430 /* PlayerSelect.swift in Sources */,
 				E3E6A14C2934629400710430 /* Rules.swift in Sources */,
+				E39BF9912939066C008323DC /* NextPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
