@@ -40,6 +40,7 @@ struct Home: View {
         let deactivateColor : Color = .red
         //Cool code
         VStack {
+            //all the dice
             HStack {
                 DiceSceneView(scene: $diceScene4)
                     .frame(width: diceSize, height: diceSize)
@@ -60,13 +61,16 @@ struct Home: View {
                     .frame(width: diceSize, height: diceSize)
                     .colorMultiply(dice3.isActivated() ? activateColor : deactivateColor)
             }
+            
             .padding(50)
-            Text("Current Player \(players[currentPlayer])")
+            //displayers current player info
+            Text("Current Player: \(players[currentPlayer])")
                 .font(.title3).bold()
             Text("Points : \(point)")
                 .font(.title).bold()
             Spacer()
             .disabled(rolling)
+            
             //Rolls the dice
             Button("Roll Dice") {
                 if !rolling {
@@ -84,14 +88,18 @@ struct Home: View {
                         centerDice()
                         //Sets recentered xy object rotation
                         updateDice(animationTime: 0.5)
+                        
                         updatePoints()
                         rolling = false
+                        //checks if no dice left
                         if droppedDead() {
+                            //moves to next player
                             points[currentPlayer] += point
                             currentPlayer += 1
                             currentPlayer %= players.count
                             point = 0
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                //bit of delay so user doesnt get confused
                                 nextPlayer = true
                                 resetDice()
                                 updateDice(animationTime: 0.0)
@@ -103,12 +111,14 @@ struct Home: View {
             .font(.title2).bold()
             .disabled(rolling || droppedDead())
         }
+        //fixes crash problem where points.count != players.count
         .onAppear {
             resetDice()
             for _ in players {
                 points.append(0)
             }
         }
+        //shows other views when variable is switched
         .sheet(isPresented: $showingRule, content: {
             Rules()
         })
@@ -120,6 +130,7 @@ struct Home: View {
         })
         .navigationTitle("\(players[currentPlayer])")
         .toolbar{
+            //show point view button
             ToolbarItem (placement: .navigationBarLeading) {
                 Button {
                     showingPoint = true
@@ -127,6 +138,7 @@ struct Home: View {
                     Image(systemName:"plusminus.circle")
                 }
             }
+            //help / show rules button
             ToolbarItem (placement: .navigationBarTrailing) {
                 Button {
                     showingRule = true
@@ -138,6 +150,7 @@ struct Home: View {
             
         }
     }
+    //reset dice to starting values
     func resetDice() {
         dice1.resetDice()
         dice2.resetDice()
@@ -145,6 +158,11 @@ struct Home: View {
         dice4.resetDice()
         dice5.resetDice()
         point = 0
+        dice1.setActivation(true)
+        dice2.setActivation(true)
+        dice3.setActivation(true)
+        dice4.setActivation(true)
+        dice5.setActivation(true)
     }
     func rollDice() {
         dice1.rollDice()
@@ -160,6 +178,7 @@ struct Home: View {
         dice4.centerDice()
         dice5.centerDice()
     }
+    //checks if all dice are deativated
     func droppedDead() -> Bool{
         if dice1.isActivated() {
             return false
@@ -178,8 +197,10 @@ struct Home: View {
         }
         return true
     }
+    //updates point values
     func updatePoints() {
         var dropDead = false
+        //checks if should be deactivated then updates activated value
         if dice1.isActivated() && (dice1.getValue() == 2 || dice1.getValue() == 5) {
             dropDead = true
             dice1.setActivation(false)
@@ -200,7 +221,9 @@ struct Home: View {
             dropDead = true
             dice5.setActivation(false)
         }
+        //skips point updating if any dice got deactivated this round
         if dropDead { return }
+        //update points from activated dice
         if dice1.isActivated() {
             point += dice1.getValue()
         }
@@ -219,6 +242,7 @@ struct Home: View {
     }
     //updates dice position
     func updateDice(animationTime : Double) {
+        //animation duration
         SCNTransaction.animationDuration = animationTime
         diceScene1?.rootNode.eulerAngles = dice1.getVector()
         diceScene2?.rootNode.eulerAngles = dice2.getVector()
@@ -247,7 +271,7 @@ class Dice : ObservableObject {
         //Changes x y z random amount (.pi = 180 rotation)
         xRot += xRandom
         yRot += yRandom
-        //fixes randomness
+        //fixes randomness (kind of janky but idk how to do it a different way other than completly changing the random generator from ground up)
         if ((Bool.random() || reroll) && (getValue() == 2 || getValue() == 5)){
             xRot -= xRandom
             yRot -= yRandom

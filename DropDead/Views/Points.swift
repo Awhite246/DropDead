@@ -14,6 +14,7 @@ struct Points: View {
     var body: some View {
         NavigationView {
             List {
+                //shows a list of all players and point values next to them
                 ForEach(players, id: \.self) { player in
                     HStack {
                         Text(player)
@@ -26,7 +27,7 @@ struct Points: View {
             .navigationBarTitleDisplayMode(.inline)
             .preferredColorScheme(.dark)
             .toolbar {
-                //back and edit button
+                //custom back button (navigation back button ugly)
                 ToolbarItem (placement: .navigationBarLeading) {
                     Button {
                         presentationMode.wrappedValue.dismiss()

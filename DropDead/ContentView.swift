@@ -11,7 +11,9 @@ struct ContentView: View {
     @State private var players : [String] = []
     var body: some View {
         NavigationView {
+            //start screen
             VStack {
+                //logo
                 ZStack {
                     Image("DiceLogo")
                         .resizable()

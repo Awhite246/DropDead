@@ -12,10 +12,12 @@ struct NextPlayer: View {
     @State var point : Int
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
+        //Zstack and color black used to so .tapgesture can check entire screen instead of just text
         ZStack {
             Color.black
                 .ignoresSafeArea()
             VStack {
+                //displays next player and previous players point
                 Text("\(name)")
                     .font(.system(size: 100))
                     .fontWeight(.bold)
@@ -30,6 +32,7 @@ struct NextPlayer: View {
                     .frame(width: 100, height: 100)
             }
         }
+        //gets rid of the view
         .onTapGesture {
             presentationMode.wrappedValue.dismiss()
         }

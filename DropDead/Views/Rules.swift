@@ -12,6 +12,7 @@ struct Rules: View {
     var body: some View {
         NavigationView {
             VStack {
+                //all the rules
                 Header(text: "Gameplay")
                 Text("The goal of drop dead is to score the highest amounts of points possible.")
                 Header(text: "On your turn, roll 5 dice")
@@ -24,6 +25,7 @@ struct Rules: View {
                 Spacer()
             }
             .toolbar{
+                //custom back button
                 ToolbarItem (placement: .navigationBarLeading) {
                     Button {
                         presentationMode.wrappedValue.dismiss()

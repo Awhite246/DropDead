@@ -41,7 +41,7 @@ struct PlayerSelect: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .toolbar {
-                //back and edit button
+                //edit button and custom back button
                 ToolbarItem (placement: .navigationBarLeading) {
                     Button {
                         presentationMode.wrappedValue.dismiss()
@@ -53,6 +53,7 @@ struct PlayerSelect: View {
                     EditButton()
                 }
             }
+            //adding players when clicked add player button
             .sheet(isPresented: $showingAddPlayer) {
                 AddPlayer(players: $players)
             }
@@ -68,12 +69,13 @@ struct AddPlayer : View {
     var body: some View {
         NavigationView {
             Form {
+                //alows user to enter in their name
                 TextField("Enter Name", text: $name)
             }
             .navigationTitle("Add New Player")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                //back and confirm button
+                //confirm button
                 ToolbarItem (placement: .navigationBarTrailing){
                     Button {
                         players.append(name)
@@ -82,8 +84,10 @@ struct AddPlayer : View {
                         Image(systemName: "checkmark.square")
                             .imageScale(.large)
                     }
+                    //disalowes confirm if no player name entered
                     .disabled(name == "")
                 }
+                //back button
                 ToolbarItem (placement: .navigationBarLeading){
                     Button {
                         presentationMode.wrappedValue.dismiss()
