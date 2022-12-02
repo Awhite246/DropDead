@@ -10,7 +10,6 @@ import SwiftUI
 struct Points: View {
     @State var players : [Player]
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @ObservedObject private var clickSound = AudioPlayer(name: "ClickSound", type: "wav", volume: 0.5)
     var body: some View {
         NavigationView {
             List {
@@ -30,16 +29,12 @@ struct Points: View {
                 //custom back button (navigation back button ugly)
                 ToolbarItem (placement: .navigationBarLeading) {
                     Button {
-                        clickSound.start()
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Image(systemName: "arrow.backward.circle")
                     }
                 }
             }
-        }
-        .onAppear {
-            clickSound.start()
         }
     }
 }

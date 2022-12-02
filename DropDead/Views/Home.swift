@@ -23,7 +23,6 @@ struct Home: View {
     
     //Sounds
     @ObservedObject private var diceSound = AudioPlayer(name: "DiceSound", type: "wav", volume: 3)
-    @ObservedObject private var clickSound = AudioPlayer(name: "ClickSound", type: "wav")
     @ObservedObject private var nextPlayerSound = AudioPlayer(name: "NextPlayerSound", type: "wav")
     //Stops button presses if dice is currently rolling
     @State private var rolling = false
@@ -71,7 +70,7 @@ struct Home: View {
             Text("Points : \(point)")
                 .font(.title).bold()
             Spacer()
-            .disabled(rolling)
+                .disabled(rolling)
             
             //Rolls the dice
             Button("Roll Dice") {
@@ -114,7 +113,6 @@ struct Home: View {
             .font(.title2).bold()
             .disabled(rolling || droppedDead())
         }
-        //fixes crash problem where points.count != players.count
         .onAppear {
             resetDice()
         }
@@ -133,7 +131,6 @@ struct Home: View {
             //show point view button
             ToolbarItem (placement: .navigationBarLeading) {
                 Button {
-                    clickSound.start()
                     showingPoint = true
                 } label: {
                     Image(systemName:"plusminus.circle")
@@ -142,7 +139,6 @@ struct Home: View {
             //help / show rules button
             ToolbarItem (placement: .navigationBarTrailing) {
                 Button {
-                    clickSound.start()
                     showingRule = true
                 } label: {
                     Image(systemName: "questionmark.circle")

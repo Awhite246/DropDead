@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var players : [Player] = []
-    @ObservedObject private var clickSound = AudioPlayer(name: "ClickSound", type: "wav", volume: 0.5)
     var body: some View {
         NavigationView {
             //start screen

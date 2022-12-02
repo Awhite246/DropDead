@@ -10,7 +10,6 @@ import SwiftUI
 struct NextPlayer: View {
     @State var player : Player
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @ObservedObject private var clickSound = AudioPlayer(name: "ClickSound", type: "wav", volume: 0.5)
     var body: some View {
         //Zstack and color black used to so .tapgesture can check entire screen instead of just text
         ZStack {

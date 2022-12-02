@@ -12,7 +12,7 @@ import AVFoundation
 class AudioPlayer: ObservableObject {
     var player = AVAudioPlayer()
     
-    init(name: String, type: String, volume: Float = 1) {
+    init(name: String, type: String, volume: Float = 1, rate: Float = 1) {
         //creates path to sound file
         if let url = Bundle.main.url(forResource: name, withExtension: type) {
             print("success audio file \(name)")
@@ -21,6 +21,8 @@ class AudioPlayer: ObservableObject {
                 player = try AVAudioPlayer(contentsOf: url)
                 player.prepareToPlay()
                 player.setVolume(volume, fadeDuration: 0)
+                player.enableRate = true
+                player.rate = rate
             } catch {
                 //if audio file doesnt exist
                 print("error getting audio \(error.localizedDescription)")
