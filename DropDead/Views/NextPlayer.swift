@@ -20,7 +20,7 @@ struct NextPlayer: View {
                 Text("\(player.name)")
                     .font(.system(size: 100))
                     .fontWeight(.bold)
-                Text("Your Up!")
+                Text("You\'re Up!")
                     .font(.system(size: 50))
                     .fontWeight(.bold)
                 Text("Last Player Got \(player.point) Point\(player.point == 1 ? "" : "s")")
@@ -32,7 +32,6 @@ struct NextPlayer: View {
         }
         //gets rid of the view
         .onTapGesture {
-            clickSound.start()
             presentationMode.wrappedValue.dismiss()
         }
         .preferredColorScheme(.dark)

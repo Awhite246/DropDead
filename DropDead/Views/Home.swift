@@ -99,6 +99,7 @@ struct Home: View {
                             currentPlayer += 1
                             currentPlayer %= players.count
                             point = 0
+                            resetDice()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 //bit of delay so user doesnt get confused
                                 nextPlayerSound.start()
@@ -156,6 +157,7 @@ struct Home: View {
         dice4.resetDice()
         dice5.resetDice()
         point = 0
+        rolling = false
         dice1.setActivation(true)
         dice2.setActivation(true)
         dice3.setActivation(true)
