@@ -10,6 +10,7 @@ import SwiftUI
 struct NextPlayer: View {
     @State var player : Player
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @ObservedObject private var clickSound = AudioPlayer(name: "ClickSound", type: "wav", volume: 0.5)
     var body: some View {
         //Zstack and color black used to so .tapgesture can check entire screen instead of just text
         ZStack {
@@ -23,9 +24,8 @@ struct NextPlayer: View {
                 Text("Your Up!")
                     .font(.system(size: 50))
                     .fontWeight(.bold)
-                    .padding(.bottom, 35)
-                Text("Last Player Got \(player.point) Point\(player.point > 1 ? "s" : "")")
-                    .padding(50)
+                Text("Last Player Got \(player.point) Point\(player.point == 1 ? "" : "s")")
+                    .padding(85)
                 Image(systemName: "checkmark.diamond")
                     .resizable()
                     .frame(width: 100, height: 100)
@@ -33,6 +33,7 @@ struct NextPlayer: View {
         }
         //gets rid of the view
         .onTapGesture {
+            clickSound.start()
             presentationMode.wrappedValue.dismiss()
         }
         .preferredColorScheme(.dark)
@@ -41,6 +42,6 @@ struct NextPlayer: View {
 
 struct NextPlayer_Previews: PreviewProvider {
     static var previews: some View {
-        NextPlayer(player: Player(name: "fred", point: 0))
+        NextPlayer(player: Player(name: "fred", point: 3))
     }
 }

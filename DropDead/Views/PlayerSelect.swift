@@ -15,6 +15,7 @@ struct PlayerSelect: View {
     @State var mode: EditMode = .inactive
     //used for custom back button
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @ObservedObject private var clickSound = AudioPlayer(name: "ClickSound", type: "wav", volume: 0.5)
     var body: some View {
         NavigationView {
             List {
@@ -44,6 +45,7 @@ struct PlayerSelect: View {
                 //edit button and custom back button
                 ToolbarItem (placement: .navigationBarLeading) {
                     Button {
+                        clickSound.start()
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Image(systemName: "arrow.backward.circle")
@@ -51,7 +53,14 @@ struct PlayerSelect: View {
                 }
                 ToolbarItem (placement: .navigationBarTrailing){
                     EditButton()
+                        .onTapGesture {
+                            clickSound.start()
+                        }
                 }
+                
+            }
+            .onAppear {
+                clickSound.start()
             }
             //adding players when clicked add player button
             .sheet(isPresented: $showingAddPlayer) {
@@ -66,6 +75,7 @@ struct AddPlayer : View {
     @Binding var players : [Player]
     @State var name : String = ""
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject private var clickSound = AudioPlayer(name: "ClickSound", type: "wav", volume: 0.5)
     var body: some View {
         NavigationView {
             Form {
@@ -79,6 +89,7 @@ struct AddPlayer : View {
                 ToolbarItem (placement: .navigationBarTrailing){
                     Button {
                         players.append(Player(name: self.name, point: 0))
+                        clickSound.start()
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Image(systemName: "checkmark.square")
@@ -90,6 +101,7 @@ struct AddPlayer : View {
                 //back button
                 ToolbarItem (placement: .navigationBarLeading){
                     Button {
+                        clickSound.start()
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Image(systemName: "x.square")
@@ -97,6 +109,9 @@ struct AddPlayer : View {
                     }
                 }
             }
+        }
+        .onAppear {
+            clickSound.start()
         }
         .background(.black)
         .preferredColorScheme(.dark)

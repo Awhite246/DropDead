@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Rules: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @ObservedObject private var clickSound = AudioPlayer(name: "ClickSound", type: "wav", volume: 0.5)
     var body: some View {
         NavigationView {
             VStack {
@@ -28,6 +29,7 @@ struct Rules: View {
                 //custom back button
                 ToolbarItem (placement: .navigationBarLeading) {
                     Button {
+                        clickSound.start()
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Image(systemName: "arrow.backward.circle")
@@ -36,6 +38,9 @@ struct Rules: View {
             }
             .navigationTitle("Rules")
             .navigationBarTitleDisplayMode(.inline)
+        }
+        .onAppear {
+            clickSound.start()
         }
         .preferredColorScheme(.dark)
     }

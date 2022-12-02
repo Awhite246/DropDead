@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var players : [Player] = []
+    @ObservedObject private var clickSound = AudioPlayer(name: "ClickSound", type: "wav", volume: 0.5)
     var body: some View {
         NavigationView {
             //start screen
@@ -27,6 +28,7 @@ struct ContentView: View {
                 .padding(.bottom, 100)
                 NavigationLink("Player Select", destination: PlayerSelect(players: $players)
                     .navigationBarBackButtonHidden(true))
+                
                 .font(.title2).bold()
                 .padding(25)
                 NavigationLink("Rules", destination: Rules()

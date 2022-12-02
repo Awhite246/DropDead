@@ -21,6 +21,10 @@ struct Home: View {
     @State private var diceScene5: SCNScene? = .init(named: "Dice.usdz")
     @StateObject private var dice5 = Dice()
     
+    //Sounds
+    @ObservedObject private var diceSound = AudioPlayer(name: "DiceSound", type: "wav", volume: 3)
+    @ObservedObject private var clickSound = AudioPlayer(name: "ClickSound", type: "wav")
+    @ObservedObject private var nextPlayerSound = AudioPlayer(name: "NextPlayerSound", type: "wav")
     //Stops button presses if dice is currently rolling
     @State private var rolling = false
     @State private var point = 0
@@ -92,12 +96,13 @@ struct Home: View {
                         //checks if no dice left
                         if droppedDead() {
                             //moves to next player
-                            players[currentPlayer].point += point
+                            players[currentPlayer] = Player(name: players[currentPlayer].name, point: point)
                             currentPlayer += 1
                             currentPlayer %= players.count
                             point = 0
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 //bit of delay so user doesnt get confused
+                                nextPlayerSound.start()
                                 nextPlayer = true
                                 resetDice()
                                 updateDice(animationTime: 0.0)
@@ -121,13 +126,14 @@ struct Home: View {
             Points(players: players)
         })
         .fullScreenCover(isPresented: $nextPlayer, content: {
-            NextPlayer(player: Player(name: players[currentPlayer].name, point: players[currentPlayer == 0 ? players.count - 1 : currentPlayer].point)) //makes sure point != -1
+            NextPlayer(player: Player(name: players[currentPlayer].name, point: players[(currentPlayer - 1) % players.count].point)) //makes sure point != -1
         })
         .navigationTitle("Drop Dead")
         .toolbar{
             //show point view button
             ToolbarItem (placement: .navigationBarLeading) {
                 Button {
+                    clickSound.start()
                     showingPoint = true
                 } label: {
                     Image(systemName:"plusminus.circle")
@@ -136,6 +142,7 @@ struct Home: View {
             //help / show rules button
             ToolbarItem (placement: .navigationBarTrailing) {
                 Button {
+                    clickSound.start()
                     showingRule = true
                 } label: {
                     Image(systemName: "questionmark.circle")
@@ -165,6 +172,7 @@ struct Home: View {
         dice3.rollDice()
         dice4.rollDice()
         dice5.rollDice()
+        diceSound.start()
     }
     func centerDice() {
         dice1.centerDice()
